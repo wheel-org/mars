@@ -1,4 +1,4 @@
-var TIME_BETWEEN_FRAMES = 1;
+var TIME_BETWEEN_FRAMES = 32;
 var DELTA_TIME = 1000 / TIME_BETWEEN_FRAMES;
 var PREV_TIME = Date.now();
 var DRAG = 0.95;
@@ -12,8 +12,6 @@ function updatePlayer(player) {
 	player.position.y += (player.delta.y * 100) / DELTA_TIME;
 	player.delta.x *= DRAG;
 	player.delta.y *= DRAG;	
-	player.rotation = Math.atan2(mouseState.position.y - player.position.y,
-		mouseState.position.x - player.position.x) + toRadians(90);
 }
 
 function checkInput() { 

@@ -16,7 +16,8 @@ $(document).ready(function () {
 	});
 	$(document).mousemove(function (e) { 
 		var rect = canvas.getBoundingClientRect();
-		mouseState.position = toWorldCoord(createTuple(e.clientX - rect.left, e.clientY - rect.top));
+		mouseState.position.x = e.clientX - rect.left;
+		mouseState.position.y = e.clientY - rect.top;
 	});
 	$(document).mouseup(function (e) {
 		

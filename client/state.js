@@ -32,7 +32,9 @@ function createTuple(x, y) {
 function createMap() { 
 	return {
 		size: createTuple(10000, 10000),
-		objects: [createObject(createRectanglePolygon(200, 200, 50, 50))]
+		objects: [createObject(createRectanglePolygon(200, 200, 50, 50)),
+			createObject(createPolygon([createTuple(700, 200), createTuple(750, 300), createTuple(850, 321), createTuple(760, 400), createTuple(721, 321)]))
+		]
 	};
 }
 

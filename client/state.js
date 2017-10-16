@@ -10,6 +10,7 @@ function createPlayer(name, x, y) {
 	return {
 		name: name,
 		position: createTuple(x, y),
+		rotation: 0.0,
 		delta: createTuple(0, 0),
 		inventory: [],
 		selectedItem: 0,

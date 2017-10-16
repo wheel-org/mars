@@ -6,13 +6,6 @@ var resources = {};
 var DRAW_BARRIER = true;
 var DRAW_NORMALS = false;
 
-function toCameraCoord(position) { 
-	return {
-		x: position.x - state.player.position.x + screenWidth / 2,
-		y: position.y - state.player.position.y + screenHeight / 2
-	};
-}
-
 function loadResource(url, deferArr) { 
 	console.log("Loading Resource: " + url);
 	var deferred = new $.Deferred();
@@ -68,13 +61,19 @@ function createGradient(x, y, width, height, color1, color2) {
 	return grd;
 }
 
-function drawImage(img, x, y) { 
-	var drawPos = toCameraCoord(createTuple(x - img.width / 2, y - img.height / 2));
-	context.drawImage(img, drawPos.x, drawPos.y);
+function drawImage(img, x, y, angle = 0) {
+	var drawPos = toCameraCoord(createTuple(x, y));
+	context.translate(drawPos.x, drawPos.y);
+	context.rotate(angle);
+	context.drawImage(img, -img.width / 2, -img.height / 2, img.width, img.height);
+	context.rotate(-angle);
+	context.translate(-drawPos.x, -drawPos.y);
 }
 
 function drawPlayer(player) { 
-	drawImage(resources[RESOURCE_CHARACTER], player.position.x, player.position.y);
+	drawImage(resources[RESOURCE_CHARACTER],
+		player.position.x,
+		player.position.y, player.rotation);
 }
 
 function drawMap(map) { 

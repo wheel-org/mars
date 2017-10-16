@@ -7,22 +7,26 @@ var mouseDown = false;
 var mouseDownLocation;
 var mouseLocation;
 
-function updatePlayerPosition(player) { 
+function updatePlayer(player) { 
 	player.position.x += (player.delta.x * 100) / DELTA_TIME;	
 	player.position.y += (player.delta.y * 100) / DELTA_TIME;
+	player.delta.x *= DRAG;
+	player.delta.y *= DRAG;	
+	player.rotation = Math.atan2(mouseState.position.y - player.position.y,
+		mouseState.position.x - player.position.x) + toRadians(90);
 }
 
 function checkInput() { 
-	if (keyState[KEY_LEFT]) { 
+	if (keyState[KEY_A]) { 
 		state.player.delta.x = -1;
 	}
-	if (keyState[KEY_RIGHT]) { 
+	if (keyState[KEY_D]) { 
 		state.player.delta.x = 1;
 	}
-	if (keyState[KEY_UP]) { 
+	if (keyState[KEY_W]) { 
 		state.player.delta.y = -1;
 	}
-	if (keyState[KEY_DOWN]) { 
+	if (keyState[KEY_S]) { 
 		state.player.delta.y = 1;
 	}
 }
@@ -31,9 +35,7 @@ function update() {
 	var now = Date.now();
 	DELTA_TIME = 1000 / (now - PREV_TIME);
 	checkInput();
-	updatePlayerPosition(state.player);
-	state.player.delta.x *= DRAG;
-	state.player.delta.y *= DRAG;	
+	updatePlayer(state.player);
 	PREV_TIME = now;
 }
 
